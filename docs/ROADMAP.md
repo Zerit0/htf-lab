@@ -30,7 +30,8 @@ La cuenta Standard de Lighter es gratuita pero añade 200–300 ms de latencia, 
 
 ## F0 · Checklist
 
-- [ ] `cargo test` y `cargo build --release` pasan en el Mac (valida `hft-recorder`).
+- [x] `cargo test` y `cargo build --release` pasan en la CI (Linux ARM y macOS ARM), mismo digest en ambas.
+- [ ] `cargo test` y `cargo build --release` pasan en el Mac.
 - [ ] Grabación de prueba desde el Mac: `malformed 0`, `DETERMINISTA OK`.
 - [ ] Anotar el `lag feed (ms)` desde Madrid.
 - [ ] VPS en `ap-northeast-1` con `scripts/vps_bootstrap.sh` (ver `RUNBOOK.md`).

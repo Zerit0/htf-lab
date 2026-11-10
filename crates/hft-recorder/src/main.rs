@@ -4,10 +4,9 @@
 //! Hilo secundario -> sigue el fichero y ejecuta la state machine (el mismo
 //!                    codigo que `hft-replay run`).
 //!
-//! AVISO: este fichero es el unico del repo que NO se pudo compilar ni probar
-//! en el entorno donde se genero (sin acceso a crates.io ni a la red). Toda
-//! la logica vive en `hft_core::session`, que si esta testeada; aqui solo hay
-//! el adaptador de tungstenite y el arranque. Primera tarea: `cargo build`.
+//! AVISO: compila y pasa clippy en la CI, pero todavia no se ha ejecutado
+//! contra el exchange real. Toda la logica vive en `hft_core::session`, que
+//! si esta testeada; aqui solo hay el adaptador de tungstenite y el arranque.
 
 use hft_core::clock::{utc_compact, Clock, SystemClock, NS_PER_SEC};
 use hft_core::event::{Kind, Venue};

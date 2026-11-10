@@ -39,22 +39,21 @@ Everything that will eventually decide money lives in `hft-core`, which has zero
 
 ## Verification status
 
-This scaffold was generated in a sandbox with no access to crates.io or the network. That limits what could be checked, so here is exactly where things stand:
-
 | Component | Status |
 |---|---|
-| `hft-core`, `hft-replay` | Compiled. 33 unit tests pass. `clippy -D warnings` and `rustfmt` clean. Exercised end to end on synthetic logs of up to 200,000 messages |
+| `hft-core`, `hft-replay` | 33 unit tests pass. `clippy -D warnings` and `rustfmt` clean. Exercised end to end on synthetic logs of up to 200,000 messages |
 | Live tail vs replay equivalence | Covered by a test: one thread writes a log while another follows it, and the live output must equal the later replay |
-| `hft-recorder` | **Not compiled against the real `tungstenite` crate.** Type-checked only against a local stub of the 0.21 API. The first `cargo build` is its real test |
+| Cross-platform determinism | CI produces the same digest (`ef5ec7debecdd701`) for the same synthetic log on Linux ARM64 and macOS ARM64 |
+| `hft-recorder` | Compiles and passes clippy in CI against the real `tungstenite` crate. **Never run against the live exchange** |
 | Hyperliquid message formats | Written from the public docs. **Not validated against the live exchange** |
 | `scripts/`, `deploy/` | Shell syntax checked. **Never run on a real server** |
 
-The quick start below closes all three open items in about fifteen minutes.
+The quick start below closes the open items in about fifteen minutes.
 
 ## Quick start
 
 ```bash
-# 1. Build and test everything (first real compile of hft-recorder)
+# 1. Build and test everything
 cargo test && cargo build --release
 
 # 2. Exercise the pipeline without a network
