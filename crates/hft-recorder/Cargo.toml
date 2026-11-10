@@ -1,0 +1,16 @@
+[package]
+name = "hft-recorder"
+description = "Borde de red: conecta a Hyperliquid por WebSocket y registra todo el trafico en el log de eventos."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+hft-core = { path = "../hft-core" }
+
+# Unica dependencia externa del proyecto. Se usa SOLO para las partes "sans-io"
+# que el hilo recomienda no reescribir: framing WebSocket y TLS (rustls).
+# Version fijada a la rama 0.21 (rustls 0.22, proveedor criptografico ring):
+# API estable y sin la seleccion de CryptoProvider de rustls 0.23.
+tungstenite = { version = "0.21", default-features = false, features = ["handshake", "rustls-tls-webpki-roots"] }

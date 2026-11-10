@@ -1,0 +1,10 @@
+[package]
+name = "hft-core"
+description = "Nucleo determinista: eventos, log append-only, state machine, replay. Cero dependencias."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+# Intencionadamente vacio. Todo lo que decide dinero vive aqui y solo usa std.

@@ -1,0 +1,30 @@
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        # ubuntu-24.04-arm = misma arquitectura que el VPS (Graviton);
+        # macos-latest = misma que el Mac mini M4.
+        os: [ubuntu-24.04-arm, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo fmt --check
+      - run: cargo clippy --all-targets -- -D warnings
+      - run: cargo test
+      - run: cargo build --release
+      - name: Determinismo extremo a extremo
+        run: |
+          ./target/release/hft-replay gen /tmp/ci.hftlog --events 50000 --seed 1
+          ./target/release/hft-replay verify /tmp/ci.hftlog
+          # el digest debe ser identico en Linux y macOS
+          ./target/release/hft-replay verify /tmp/ci.hftlog | grep digest

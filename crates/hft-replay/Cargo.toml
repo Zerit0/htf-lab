@@ -1,0 +1,10 @@
+[package]
+name = "hft-replay"
+description = "Herramienta offline: replay determinista, volcado, estadisticas y logs sinteticos. Solo depende de hft-core."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+hft-core = { path = "../hft-core" }

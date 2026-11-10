@@ -1,0 +1,27 @@
+[Unit]
+Description=hft-recorder (captura Hyperliquid)
+After=network-online.target chrony.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=hft
+Group=hft
+WorkingDirectory=/opt/hft-lab
+# Monedas: edita /etc/hft/recorder.env (COINS=BTC,ETH,HYPE)
+EnvironmentFile=-/etc/hft/recorder.env
+ExecStart=/opt/hft-lab/target/release/hft-recorder --coins ${COINS} --out-dir /var/lib/hft/data --quiet
+Restart=always
+RestartSec=2
+# Cada reinicio crea un fichero nuevo: una sesion, un fichero.
+
+# Endurecimiento: el proceso solo necesita red saliente y escribir en su carpeta.
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/var/lib/hft/data
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

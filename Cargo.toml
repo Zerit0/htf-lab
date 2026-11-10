@@ -1,0 +1,16 @@
+[workspace]
+resolver = "2"
+members = ["crates/hft-core", "crates/hft-replay", "crates/hft-recorder"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "UNLICENSED"
+publish = false
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+debug = 1          # simbolos minimos: backtraces utiles en el VPS
+panic = "abort"    # un panic mata el proceso; systemd lo reinicia y el log queda intacto
